@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master, develop, '*' ]
+  pull_request:
+    branches: [ '**' ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: sbt
+
+      - name: Set up sbt
+        uses: sbt/setup-sbt@v1
+
+      - name: Show sbt version
+        run: sbt --version
+
+      - name: Scalafmt check
+        run: |
+          make fmt-check
+
+      - name: Compile
+        run: sbt -v compile
+
+      - name: Run tests
+        run: sbt -v test
