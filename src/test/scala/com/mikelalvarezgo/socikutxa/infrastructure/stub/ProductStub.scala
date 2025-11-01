@@ -8,9 +8,9 @@ import scala.util.Random
 object ProductStub {
 
   def random(): Product = Product(
-    ProductId.apply(UUID.randomUUID()),
-    Random.nextString(10),
-    ProductCategory.values.head,
-    Random.nextFloat().abs,
+      ProductId.apply(UUID.randomUUID()),
+      Random.nextString(10),
+      ProductCategory.values.head,
+      Random.nextFloat().abs
   )
 }

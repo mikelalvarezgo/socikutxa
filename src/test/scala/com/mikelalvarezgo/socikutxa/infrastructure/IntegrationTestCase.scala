@@ -20,9 +20,9 @@ abstract class IntegrationTestCase
     with EitherValues {
   implicit override val patienceConfig: PatienceConfig =
     PatienceConfig(timeout = 60.seconds, interval = 500.millis)
-  val config = ConfigFactory.defaultApplication()
+  val config                                           = ConfigFactory.defaultApplication()
 
-  val postgresConfig = PostgresConfig.fromConfig(config.getConfig("app.postgres"))
+  val postgresConfig                        = PostgresConfig.fromConfig(config.getConfig("app.postgres"))
   implicit val system: ActorSystem          = ActorSystem()
   implicit val ec: ExecutionContextExecutor = system.dispatcher
   implicit val logger: Logger               = DummyLogger

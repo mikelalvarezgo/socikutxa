@@ -1,5 +1,6 @@
 package com.mikelalvarezgo.socikutxa.shared.infrastructure.dependency_injection
+import org.http4s._
+trait Context[P[_]] {
 
-trait Context {
-  def dispatcher: Dispatcher
+  val routes: HttpRoutes[P]
 }

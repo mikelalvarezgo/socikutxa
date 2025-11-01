@@ -29,8 +29,8 @@ abstract class AcceptanceSpec[CurrentContext <: TestContext]
   }
 
   implicit override val patienceConfig: PatienceConfig = PatienceConfig(
-    timeout = scaled(60.seconds),
-    interval = scaled(500.millis)
+      timeout = scaled(60.seconds),
+      interval = scaled(500.millis)
   )
   type Test = CurrentContext => Assertion
 

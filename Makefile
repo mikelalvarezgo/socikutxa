@@ -24,12 +24,12 @@ up:
  down:
 	@docker-compose -f stack/services.yaml down
 
-## 	buildMongo:		Build mongo environment
- .PHONY : buildMongo
- buildMongo:
-	sbt "project odds_checker; runMain com.mikelalvarezgo.socikutxa.odds_checker.infrastructure.mongo.MongoEnvironmentBuilder;"
+## 	fmt:			Format Scala sources with scalafmt
+.PHONY : fmt
+fmt:
+	@sbt "scalafmtAll; scalafmtSbt"
 
-## 	dropMongo:		Drop mongo environment
- .PHONY : buildMongo
- dropMongo:
-	sbt "project odds_checker; runMain com.mikelalvarezgo.socikutxa.odds_checker.infrastructure.mongo.MongoEnvironmentDropper;"
+## 	fmt-check:		Check Scala sources are formatted (CI-safe)
+.PHONY : fmt-check
+fmt-check:
+	@sbt "scalafmtCheckAll; scalafmtSbtCheck"
