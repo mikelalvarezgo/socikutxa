@@ -1,0 +1,44 @@
+package com.mikelalvarezgo.socikutxa
+
+import cats.effect.{ExitCode, IO, IOApp}
+import com.comcast.ip4s._
+import com.mikelalvarezgo.socikutxa.product.infrastructure.ProductContext
+import com.mikelalvarezgo.socikutxa.shared.infrastructure.configuration.AppConfig
+import doobie.Transactor
+import org.http4s.ember.server.EmberServerBuilder
+import org.http4s.server.Router
+
+object App extends IOApp {
+
+  override def run(args: List[String]): IO[ExitCode] = {
+    val config = AppConfig.load()
+
+    val transactor: Transactor[IO] = Transactor.fromDriverManager[IO](
+        driver = config.database.driver,
+        url = config.database.url,
+        user = config.database.user,
+        password = config.database.password,
+        logHandler = None
+    )
+
+    val productContext = new ProductContext(transactor)
+
+    val routes = Router(
+        "/api" -> productContext.routes
+    ).orNotFound
+
+    val host = Ipv4Address.fromString(config.server.host).getOrElse(ipv4"0.0.0.0")
+    val port = Port.fromInt(config.server.port).getOrElse(port"8080")
+
+    EmberServerBuilder
+      .default[IO]
+      .withHost(host)
+      .withPort(port)
+      .withHttpApp(routes)
+      .build
+      .use(
+          _ => IO.never
+      )
+      .as(ExitCode.Success)
+  }
+}
