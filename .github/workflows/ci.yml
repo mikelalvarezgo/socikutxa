@@ -7,9 +7,32 @@ on:
     branches: [ '**' ]
 
 jobs:
-  build:
+  compile:
+    name: Build & Compile
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: sbt
+
+      - name: Set up sbt
+        uses: sbt/setup-sbt@v1
+
+      - name: Show sbt version
+        run: sbt --version
+
+      - name: Compile
+        run: sbt -v compile
+
+  format:
+    name: Scalafmt Check
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,11 +51,27 @@ jobs:
         run: sbt --version
 
       - name: Scalafmt check
-        run: |
-          make fmt-check
+        run: make fmt-check
 
-      - name: Compile
-        run: sbt -v compile
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: sbt
+
+      - name: Set up sbt
+        uses: sbt/setup-sbt@v1
+
+      - name: Show sbt version
+        run: sbt --version
 
       - name: Run tests
         run: sbt -v test

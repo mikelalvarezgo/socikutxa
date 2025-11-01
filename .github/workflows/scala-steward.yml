@@ -1,0 +1,48 @@
+name: Scala Steward
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '* * * * *' # Every day at 06:00 UTC
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  scala-steward:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: sbt
+
+      - name: Set up sbt
+        uses: sbt/setup-sbt@v1
+
+      - name: Cache Coursier
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/coursier
+            ~/.ivy2/cache
+            ~/.sbt
+          key: ${{ runner.os }}-coursier-${{ hashFiles('**/build.sbt', '**/project/*.sbt', '**/project/**.scala') }}
+          restore-keys: |
+            ${{ runner.os }}-coursier-
+
+      - name: Run Scala Steward
+        uses: scala-steward-org/scala-steward-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          author-email: scala-steward[bot]@users.noreply.github.com
+          author-name: scala-steward[bot]
+          repo-config: .github/scala-steward.conf
+          # Uncomment to limit updates per run
+          # max-prs: 10
