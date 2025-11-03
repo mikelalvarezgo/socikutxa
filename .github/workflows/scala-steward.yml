@@ -43,6 +43,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           author-email: scala-steward[bot]@users.noreply.github.com
           author-name: scala-steward[bot]
-          repo-config: .github/scala-steward.conf
           # Uncomment to limit updates per run
           # max-prs: 10
