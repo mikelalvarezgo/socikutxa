@@ -8,19 +8,19 @@ object Dependencies {
     val akkaHttpCors  = "1.2.0"
     val catsEffect    = "3.5.7"
     val catsCore      = "2.12.0"
-    val circe         = "0.14.1"
+    val circe         = "0.14.4"
     val joda          = "2.10.13"
     val http4s        = "0.23.30"
-    val kamon         = "2.2.3"
+    val kamon         = "2.7.7"
     val kamonHttp4s   = "2.2.1"
     val mockito       = "1.16.46"
-    val mongo         = "5.1.1"
+    val mongo         = "5.1.4"
     val doobie        = "1.0.0-RC4"
     val scalalikeJdbc = "4.3.0"
     val reactiveMongo = "1.0.3"
     val scalaLogging  = "3.9.4"
     val typeSafe      = "1.4.5"
-    val kantan        = "0.7.0"
+    val kantan        = "0.8.0"
     val scalaTest     = "3.2.10"
     val sealerate     = "0.0.6"
     val slf4j         = "1.7.30"
@@ -59,7 +59,7 @@ object Dependencies {
     // Start with this one
     val doobie        = "org.tpolecat"               %% "doobie-core"        % Version.doobie
     val scalalikeJdbc = "org.scalikejdbc"            %% "scalikejdbc"        % Version.scalalikeJdbc
-    val postgresql    = "org.postgresql"              % "postgresql"         % "42.7.3" // PostgreSQL JDBC driver
+    val postgresql    = "org.postgresql"              % "postgresql"         % "42.7.8" // PostgreSQL JDBC driver
     // Logs
     val scalaLogging  = "com.typesafe.scala-logging" %% "scala-logging"      % Version.scalaLogging
 
