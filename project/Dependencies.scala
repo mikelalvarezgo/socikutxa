@@ -11,7 +11,7 @@ object Dependencies {
     val circe         = "0.14.1"
     val joda          = "2.10.13"
     val http4s        = "0.23.30"
-    val kamon         = "2.2.3"
+    val kamon         = "2.7.7"
     val kamonHttp4s   = "2.2.1"
     val mockito       = "1.16.46"
     val mongo         = "5.1.1"
