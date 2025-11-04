@@ -15,7 +15,7 @@ import org.http4s.multipart.Multipart
 
 class ProductController(
     importProductsUseCase: ImportProductsUseCase[IO],
-    getProductsUseCase: GetProductsUseCase[IO],
+    getProductsUseCase: GetProductsUseCase[IO]
 ) {
   implicit val productListEncoder: Encoder[List[Product]] = Encoder.encodeList[Product]
 
@@ -25,7 +25,7 @@ class ProductController(
         _ =>
           Ok("Upload received")
       }
-    case GET -> Root / "product" =>
+    case GET -> Root / "product"                   =>
       getProductsUseCase.execute(GetProductsQuery()).toHttpResponse
   }
 }

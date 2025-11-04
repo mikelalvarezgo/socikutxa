@@ -14,7 +14,7 @@ class GetProductsUseCase[P[_]](productRepository: ProductRepository[P])
 
 }
 object GetProductsUseCase {
-  case class GetProductsQuery() extends Query{
+  case class GetProductsQuery() extends Query {
     override type Response = List[Product]
   }
 }

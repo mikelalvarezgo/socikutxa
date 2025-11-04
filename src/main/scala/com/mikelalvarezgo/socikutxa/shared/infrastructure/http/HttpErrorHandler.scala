@@ -11,17 +11,19 @@ import org.http4s.dsl.io._
 
 object HttpErrorHandler {
 
-  implicit class ValidationOps[A: Encoder](validation: Validation[IO[A]]) {
+  implicit class ValidationOps[A : Encoder](validation: Validation[IO[A]]) {
     def toHttpResponse: IO[Response[IO]] =
       validation.fold(
-        errors => BadRequest(Map("errors" -> errors.toList.map(_.message)).asJson),
-        ioResult =>
-          ioResult
-            .flatMap {
-              case list: List[_] if list.isEmpty => NotFound("Resource not found")
-              case result                        => Ok(result.asJson)
-            }
-            .handleErrorWith(error => InternalServerError(s"Internal server error: ${error.getMessage}"))
+          errors => BadRequest(Map("errors" -> errors.toList.map(_.message)).asJson),
+          ioResult =>
+            ioResult
+              .flatMap {
+                case list: List[_] if list.isEmpty => NotFound("Resource not found")
+                case result                        => Ok(result.asJson)
+              }
+              .handleErrorWith(
+                  error => InternalServerError(s"Internal server error: ${error.getMessage}")
+              )
       )
   }
 }
