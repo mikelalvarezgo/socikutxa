@@ -21,7 +21,7 @@ object Dependencies {
     val scalaLogging  = "3.9.4"
     val typeSafe      = "1.4.3"
     val kantan        = "0.7.0"
-    val scalaTest     = "3.2.10"
+    val scalaTest     = "3.2.19"
     val sealerate     = "0.0.6"
     val slf4j         = "1.7.30"
   }
