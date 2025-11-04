@@ -9,7 +9,7 @@ object Dependencies {
     val catsEffect    = "3.5.7"
     val catsCore      = "2.12.0"
     val circe         = "0.14.1"
-    val joda          = "2.10.13"
+    val joda          = "2.10.14"
     val http4s        = "0.23.30"
     val kamon         = "2.2.3"
     val kamonHttp4s   = "2.2.1"
