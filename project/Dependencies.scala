@@ -19,7 +19,7 @@ object Dependencies {
     val scalalikeJdbc = "4.3.0"
     val reactiveMongo = "1.0.3"
     val scalaLogging  = "3.9.4"
-    val typeSafe      = "1.4.3"
+    val typeSafe      = "1.4.5"
     val kantan        = "0.7.0"
     val scalaTest     = "3.2.10"
     val sealerate     = "0.0.6"
