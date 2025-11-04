@@ -8,7 +8,7 @@ object Dependencies {
     val akkaHttpCors  = "1.2.0"
     val catsEffect    = "3.5.7"
     val catsCore      = "2.12.0"
-    val circe         = "0.14.1"
+    val circe         = "0.14.4"
     val joda          = "2.10.13"
     val http4s        = "0.23.30"
     val kamon         = "2.2.3"
