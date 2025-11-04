@@ -10,7 +10,7 @@ object Dependencies {
     val catsCore      = "2.13.0"
     val joda          = "2.10.14"
     val circe         = "0.14.4"
-    val http4s        = "0.23.30"
+    val http4s        = "0.23.33"
     val kamon         = "2.7.7"
     val kamonHttp4s   = "2.2.1"
     val mockito       = "1.16.55"
