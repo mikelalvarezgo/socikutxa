@@ -39,6 +39,7 @@ object Dependencies {
     val http4sEmberClient = "org.http4s"        %% "http4s-ember-client" % Version.http4s
     val http4sEmberServer = "org.http4s"        %% "http4s-ember-server" % Version.http4s
     val http4sDsl         = "org.http4s"        %% "http4s-dsl"          % Version.http4s
+    val http4sCirce       = "org.http4s"        %% "http4s-circe"        % Version.http4s
 
     val akkaHttp           = "com.typesafe.akka" %% "akka-http"       % Version.akkaHttp
     val akkaHttpCirce      = "de.heikoseeberger" %% "akka-http-circe" % Version.akkaHttpCirce
@@ -86,6 +87,7 @@ object Dependencies {
       General.http4sDsl,
       General.http4sEmberServer,
       General.http4sEmberClient,
+      General.http4sCirce,
       General.kantan,
       General.kantanCats,
       General.kamonSystemMetrics,
