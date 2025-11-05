@@ -18,7 +18,7 @@ object Dependencies {
     val doobie        = "1.0.0-RC4"
     val scalalikeJdbc = "4.3.0"
     val reactiveMongo = "1.0.3"
-    val scalaLogging  = "3.9.4"
+    val scalaLogging  = "3.9.6"
     val typeSafe      = "1.4.5"
     val kantan        = "0.8.0"
     val scalaTest     = "3.2.19"
