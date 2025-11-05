@@ -10,11 +10,11 @@ object Dependencies {
     val catsCore      = "2.13.0"
     val joda          = "2.10.14"
     val circe         = "0.14.4"
-    val http4s        = "0.23.30"
+    val http4s        = "0.23.33"
     val kamon         = "2.7.7"
     val kamonHttp4s   = "2.2.1"
     val mockito       = "1.16.55"
-    val mongo         = "5.1.4"
+    val mongo         = "5.6.1"
     val doobie        = "1.0.0-RC4"
     val scalalikeJdbc = "4.3.0"
     val reactiveMongo = "1.0.3"
@@ -24,6 +24,7 @@ object Dependencies {
     val scalaTest     = "3.2.19"
     val sealerate     = "0.0.6"
     val slf4j         = "1.7.30"
+    val poi           = "5.2.3"
   }
 
   object General {
@@ -39,6 +40,7 @@ object Dependencies {
     val http4sEmberClient = "org.http4s"        %% "http4s-ember-client" % Version.http4s
     val http4sEmberServer = "org.http4s"        %% "http4s-ember-server" % Version.http4s
     val http4sDsl         = "org.http4s"        %% "http4s-dsl"          % Version.http4s
+    val http4sCirce       = "org.http4s"        %% "http4s-circe"        % Version.http4s
 
     val akkaHttp           = "com.typesafe.akka" %% "akka-http"       % Version.akkaHttp
     val akkaHttpCirce      = "de.heikoseeberger" %% "akka-http-circe" % Version.akkaHttpCirce
@@ -62,6 +64,7 @@ object Dependencies {
     val postgresql    = "org.postgresql"              % "postgresql"         % "42.7.8" // PostgreSQL JDBC driver
     // Logs
     val scalaLogging  = "com.typesafe.scala-logging" %% "scala-logging"      % Version.scalaLogging
+    val poi           = "org.apache.poi"              % "poi-ooxml"          % Version.poi
 
   }
 
@@ -86,6 +89,7 @@ object Dependencies {
       General.http4sDsl,
       General.http4sEmberServer,
       General.http4sEmberClient,
+      General.http4sCirce,
       General.kantan,
       General.kantanCats,
       General.kamonSystemMetrics,
@@ -96,6 +100,7 @@ object Dependencies {
       General.doobie,
       General.joda,
       General.sealarate,
+      General.poi,
       Testing.mockito,
       Testing.scalaTest
   )
