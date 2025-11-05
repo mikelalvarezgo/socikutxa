@@ -18,13 +18,13 @@ object Dependencies {
     val doobie        = "1.0.0-RC4"
     val scalalikeJdbc = "4.3.0"
     val reactiveMongo = "1.0.3"
-    val scalaLogging  = "3.9.4"
+    val scalaLogging  = "3.9.6"
     val typeSafe      = "1.4.5"
     val kantan        = "0.8.0"
     val scalaTest     = "3.2.19"
     val sealerate     = "0.0.6"
     val slf4j         = "1.7.30"
-    val poi           = "5.2.3"
+    val poi           = "5.2.5"
   }
 
   object General {
