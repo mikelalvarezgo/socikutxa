@@ -15,7 +15,8 @@ class PostgresUserRepository(transactor: Transactor[IO])
   override def save(user: User): IO[Unit] = {
     sql"""
           INSERT INTO "user" (id, name, surname, email, password, birthdate, phone_number, created_at, updated_at)
-          VALUES (${user.id.raw}, ${user.name}, ${user.surname}, ${user.email}, ${user.password}, ${user.birthdate}, ${user.phoneNumber}, ${user.createdAt}, ${user.updatedAt})
+          VALUES (${user.id.raw}, ${user.name}, ${user.surname}, ${user.email.value}, ${user.password}, ${user.birthdate}, ${user.phoneNumber
+        .map(_.value)}, ${user.createdAt}, ${user.updatedAt})
         """.update.run.transact(transactor).void
   }
 

@@ -6,10 +6,10 @@ case class User(
     id: UserId,
     name: String,
     surname: String,
-    email: String,
+    email: Email,
     password: String,
     birthdate: Option[LocalDate],
-    phoneNumber: Option[String],
+    phoneNumber: Option[PhoneNumber],
     createdAt: Instant,
     updatedAt: Instant
 )

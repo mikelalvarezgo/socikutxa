@@ -1,6 +1,6 @@
 package com.mikelalvarezgo.socikutxa.infrastructure.stub
 
-import com.mikelalvarezgo.socikutxa.user.domain.{User, UserId}
+import com.mikelalvarezgo.socikutxa.user.domain.{Email, PhoneNumber, User, UserId}
 
 import java.time.{Instant, LocalDate}
 import java.util.UUID
@@ -12,10 +12,10 @@ object UserStub {
       UserId.apply(UUID.randomUUID()),
       Random.nextString(10),
       Random.nextString(10),
-      s"${Random.nextString(5)}@test.com",
+      Email.unsafe("${Random.nextString(5)}@test.com"),
       Random.nextString(60),
       Some(LocalDate.now().minusYears(Random.nextInt(50))),
-      Some(s"+34${Random.nextInt(999999999)}"),
+      Some(PhoneNumber.unsafe("+34${Random.nextInt(999999999)}")),
       Instant.now(),
       Instant.now()
   )

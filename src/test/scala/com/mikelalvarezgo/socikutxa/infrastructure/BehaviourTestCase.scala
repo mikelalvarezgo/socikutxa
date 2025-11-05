@@ -4,6 +4,7 @@ import cats.effect.IO
 import cats.implicits.catsSyntaxApplicativeId
 import com.mikelalvarezgo.socikutxa.product.domain.contract.ProductRepository
 import com.mikelalvarezgo.socikutxa.product.domain.Product
+import com.mikelalvarezgo.socikutxa.user.domain.contract.UserRepository
 import org.mockito.{ArgumentMatchersSugar, MockitoSugar}
 import org.scalatest.{BeforeAndAfterAll, EitherValues, GivenWhenThen, OptionValues}
 import org.scalatest.concurrent.ScalaFutures
@@ -35,4 +36,5 @@ abstract class BehaviourTestCase
 
   // Repositories
   val productRepository = mock[ProductRepository[IO]]
+  val userRepository    = mock[UserRepository[IO]]
 }
