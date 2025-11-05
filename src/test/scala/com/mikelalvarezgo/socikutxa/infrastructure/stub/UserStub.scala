@@ -12,10 +12,10 @@ object UserStub {
       UserId.apply(UUID.randomUUID()),
       Random.nextString(10),
       Random.nextString(10),
-      Email.unsafe("${Random.nextString(5)}@test.com"),
+      Email.unsafe("abcdc@test.com"),
       Random.nextString(60),
       Some(LocalDate.now().minusYears(Random.nextInt(50))),
-      Some(PhoneNumber.unsafe("+34${Random.nextInt(999999999)}")),
+      Some(PhoneNumber.unsafe(s"+34${Random.nextInt(999999999)}")),
       Instant.now(),
       Instant.now()
   )
