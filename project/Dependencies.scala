@@ -13,17 +13,18 @@ object Dependencies {
     val http4s        = "0.23.33"
     val kamon         = "2.7.7"
     val kamonHttp4s   = "2.2.1"
-    val mockito       = "1.16.55"
+    val mockito       = "2.0.0"
     val mongo         = "5.6.1"
     val doobie        = "1.0.0-RC4"
     val scalalikeJdbc = "4.3.0"
     val reactiveMongo = "1.0.3"
-    val scalaLogging  = "3.9.4"
+    val scalaLogging  = "3.9.6"
     val typeSafe      = "1.4.5"
     val kantan        = "0.8.0"
     val scalaTest     = "3.2.19"
     val sealerate     = "0.0.6"
     val slf4j         = "1.7.30"
+    val poi           = "5.4.1"
   }
 
   object General {
@@ -63,6 +64,7 @@ object Dependencies {
     val postgresql    = "org.postgresql"              % "postgresql"         % "42.7.8" // PostgreSQL JDBC driver
     // Logs
     val scalaLogging  = "com.typesafe.scala-logging" %% "scala-logging"      % Version.scalaLogging
+    val poi           = "org.apache.poi"              % "poi-ooxml"          % Version.poi
 
   }
 
@@ -98,6 +100,7 @@ object Dependencies {
       General.doobie,
       General.joda,
       General.sealarate,
+      General.poi,
       Testing.mockito,
       Testing.scalaTest
   )
