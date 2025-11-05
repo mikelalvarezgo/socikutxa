@@ -21,23 +21,25 @@ class ProductController(
 
   val routes: HttpRoutes[IO] = HttpRoutes.of[IO] {
     case req @ POST -> Root / "product" / "upload" =>
-      req.decode[Multipart[IO]] { multipart =>
-        multipart.parts.find(_.filename.exists(_.endsWith(".xlsx"))) match {
-          case Some(filePart) =>
-            filePart.body.compile.toList.flatMap { chunks =>
-              val bytes       = chunks.toArray
-              val inputStream = new java.io.ByteArrayInputStream(bytes)
-              XlsxProductParser.parse(inputStream) match {
-                case Right(products) =>
-                  val command = ImportProductsCommand(products)
-                  importProductsUseCase.execute(command).toHttpResponse
-                case Left(error)     =>
-                  BadRequest(error.getMessage)
+      req.decode[Multipart[IO]] {
+        multipart =>
+          multipart.parts.find(_.filename.exists(_.endsWith(".xlsx"))) match {
+            case Some(filePart) =>
+              filePart.body.compile.toList.flatMap {
+                chunks =>
+                  val bytes       = chunks.toArray
+                  val inputStream = new java.io.ByteArrayInputStream(bytes)
+                  XlsxProductParser.parse(inputStream) match {
+                    case Right(products) =>
+                      val command = ImportProductsCommand(products)
+                      importProductsUseCase.execute(command).toHttpResponse
+                    case Left(error)     =>
+                      BadRequest(error.getMessage)
+                  }
               }
-            }
-          case None           =>
-            BadRequest("No .xlsx file found in upload")
-        }
+            case None           =>
+              BadRequest("No .xlsx file found in upload")
+          }
       }
     case GET -> Root / "product"                   =>
       getProductsUseCase.execute(GetProductsQuery()).toHttpResponse

@@ -33,20 +33,27 @@ object XlsxProductParser {
 
       val dataRows = rows.tail
 
-      val products = dataRows.flatMap { row =>
-        parseRow(row, nameIndex, priceIndex, categoryIndex)
+      val products = dataRows.flatMap {
+        row =>
+          parseRow(row, nameIndex, priceIndex, categoryIndex)
       }
 
       workbook.close()
       Right(products)
-    }.toEither.left.map(e => ProductParsingException(e.getMessage)).flatMap(identity)
+    }.toEither.left
+      .map(
+          e => ProductParsingException(e.getMessage)
+      )
+      .flatMap(identity)
   }
 
   private def extractHeaders(row: Row): List[String] = {
     row
       .cellIterator()
       .asScala
-      .map(cell => cell.getStringCellValue.trim.toLowerCase)
+      .map(
+          cell => cell.getStringCellValue.trim.toLowerCase
+      )
       .toList
   }
 
