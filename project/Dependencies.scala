@@ -24,6 +24,7 @@ object Dependencies {
     val scalaTest     = "3.2.19"
     val sealerate     = "0.0.6"
     val slf4j         = "1.7.30"
+    val poi           = "5.2.3"
   }
 
   object General {
@@ -63,6 +64,7 @@ object Dependencies {
     val postgresql    = "org.postgresql"              % "postgresql"         % "42.7.8" // PostgreSQL JDBC driver
     // Logs
     val scalaLogging  = "com.typesafe.scala-logging" %% "scala-logging"      % Version.scalaLogging
+    val poi           = "org.apache.poi"              % "poi-ooxml"          % Version.poi
 
   }
 
@@ -98,6 +100,7 @@ object Dependencies {
       General.doobie,
       General.joda,
       General.sealarate,
+      General.poi,
       Testing.mockito,
       Testing.scalaTest
   )
