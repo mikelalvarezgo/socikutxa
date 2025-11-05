@@ -10,7 +10,7 @@ object Dependencies {
     val catsCore      = "2.13.0"
     val joda          = "2.10.14"
     val circe         = "0.14.4"
-    val http4s        = "0.23.30"
+    val http4s        = "0.23.33"
     val kamon         = "2.7.7"
     val kamonHttp4s   = "2.2.1"
     val mockito       = "1.16.55"
@@ -39,6 +39,7 @@ object Dependencies {
     val http4sEmberClient = "org.http4s"        %% "http4s-ember-client" % Version.http4s
     val http4sEmberServer = "org.http4s"        %% "http4s-ember-server" % Version.http4s
     val http4sDsl         = "org.http4s"        %% "http4s-dsl"          % Version.http4s
+    val http4sCirce       = "org.http4s"        %% "http4s-circe"        % Version.http4s
 
     val akkaHttp           = "com.typesafe.akka" %% "akka-http"       % Version.akkaHttp
     val akkaHttpCirce      = "de.heikoseeberger" %% "akka-http-circe" % Version.akkaHttpCirce
@@ -86,6 +87,7 @@ object Dependencies {
       General.http4sDsl,
       General.http4sEmberServer,
       General.http4sEmberClient,
+      General.http4sCirce,
       General.kantan,
       General.kantanCats,
       General.kamonSystemMetrics,
