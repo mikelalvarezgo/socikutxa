@@ -1,0 +1,11 @@
+CREATE TABLE "user"(
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    surname TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    birthdate DATE,
+    phone_number TEXT,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
