@@ -13,7 +13,7 @@ object Dependencies {
     val http4s        = "0.23.33"
     val kamon         = "2.7.7"
     val kamonHttp4s   = "2.2.1"
-    val mockito       = "1.16.55"
+    val mockito       = "1.17.45"
     val mongo         = "5.6.1"
     val doobie        = "1.0.0-RC4"
     val scalalikeJdbc = "4.3.0"
