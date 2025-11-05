@@ -24,7 +24,7 @@ object Dependencies {
     val scalaTest     = "3.2.19"
     val sealerate     = "0.0.6"
     val slf4j         = "1.7.30"
-    val poi           = "5.2.5"
+    val poi           = "5.4.1"
   }
 
   object General {
