@@ -25,6 +25,8 @@ object Dependencies {
     val sealerate     = "0.0.6"
     val slf4j         = "1.7.30"
     val poi           = "5.4.1"
+    val jwtCirce      = "11.0.3"
+    val bcrypt        = "0.4"
   }
 
   object General {
@@ -65,6 +67,9 @@ object Dependencies {
     // Logs
     val scalaLogging  = "com.typesafe.scala-logging" %% "scala-logging"      % Version.scalaLogging
     val poi           = "org.apache.poi"              % "poi-ooxml"          % Version.poi
+    // Auth
+    val jwtCirce      = "com.github.jwt-scala"       %% "jwt-circe"          % Version.jwtCirce
+    val bcrypt        = "org.mindrot"                 % "jbcrypt"            % Version.bcrypt
 
   }
 
@@ -101,6 +106,8 @@ object Dependencies {
       General.joda,
       General.sealarate,
       General.poi,
+      General.jwtCirce,
+      General.bcrypt,
       Testing.mockito,
       Testing.scalaTest
   )

@@ -2,7 +2,7 @@ package com.mikelalvarezgo.socikutxa.user.infrastructure
 
 import cats.data.OptionT
 import cats.effect.IO
-import com.mikelalvarezgo.socikutxa.user.domain.{User, UserId}
+import com.mikelalvarezgo.socikutxa.user.domain.{Email, User, UserId}
 import com.mikelalvarezgo.socikutxa.user.domain.contract.UserRepository
 import doobie.Transactor
 import doobie.implicits.toSqlInterpolator
@@ -24,6 +24,16 @@ class PostgresUserRepository(transactor: Transactor[IO])
     OptionT[IO, User](
         sql"""
         SELECT id, name, surname, email, password, birthdate, phone_number, created_at, updated_at FROM "user" WHERE id = ${id.raw}
+      """.query[User]
+          .option
+          .transact(transactor)
+    )
+  }
+
+  override def findByEmail(email: Email): OptionT[IO, User] = {
+    OptionT[IO, User](
+        sql"""
+        SELECT id, name, surname, email, password, birthdate, phone_number, created_at, updated_at FROM "user" WHERE email = ${email.value}
       """.query[User]
           .option
           .transact(transactor)
