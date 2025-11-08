@@ -8,6 +8,7 @@ case class User(
     surname: String,
     email: Email,
     password: String,
+    userType: UserType,
     birthdate: Option[LocalDate],
     phoneNumber: Option[PhoneNumber],
     createdAt: Instant,

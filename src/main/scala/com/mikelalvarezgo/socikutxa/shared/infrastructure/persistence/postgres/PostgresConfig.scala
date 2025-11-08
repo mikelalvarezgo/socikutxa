@@ -5,7 +5,7 @@ import com.typesafe.config.Config
 import doobie.Transactor
 final case class PostgresConfig(host: String, port: Int, user: String, password: String) {
   private val dbName = "bardenas"
-  private val url    = s"jdbc:postgres://$host:$port/$dbName"
+  private val url    = s"jdbc:postgresql://$host:$port/$dbName"
 
   val transactor: Transactor[IO] = Transactor.fromDriverManager[IO](
       driver = "org.postgresql.Driver",

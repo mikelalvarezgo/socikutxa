@@ -6,15 +6,13 @@ import cats.effect.unsafe.implicits.global
 import com.mikelalvarezgo.socikutxa.auth.application.{AuthenticateUserUseCase, InvalidCredentials}
 import com.mikelalvarezgo.socikutxa.auth.domain.Credentials
 import com.mikelalvarezgo.socikutxa.auth.infrastructure.{JwtService, PasswordHashingService}
+import com.mikelalvarezgo.socikutxa.infrastructure.stub.UserStub
 import com.mikelalvarezgo.socikutxa.user.domain._
 import com.mikelalvarezgo.socikutxa.user.domain.contract.UserRepository
 import org.mockito.ArgumentMatchersSugar.any
 import org.mockito.MockitoSugar
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-
-import java.time.Instant
-import java.util.UUID
 
 class AuthenticateUserUseCaseTest extends AnyWordSpec with Matchers with MockitoSugar {
 
@@ -30,18 +28,12 @@ class AuthenticateUserUseCaseTest extends AnyWordSpec with Matchers with Mockito
       val plainPassword  = "password123"
       val hashedPassword = passwordHashingService.hashPassword(plainPassword).unsafeRunSync()
 
-      val userId = UUID.randomUUID()
-      val user   = User(
-          id = UserId(userId),
-          name = "John",
-          surname = "Doe",
-          email = email,
-          password = hashedPassword,
-          birthdate = None,
-          phoneNumber = None,
-          createdAt = Instant.now(),
-          updatedAt = Instant.now()
-      )
+      val user = UserStub
+        .random()
+        .copy(
+            email = email,
+            password = hashedPassword
+        )
 
       when(mockUserRepository.findByEmail(email)).thenReturn(OptionT.some[IO](user))
 
@@ -49,7 +41,7 @@ class AuthenticateUserUseCaseTest extends AnyWordSpec with Matchers with Mockito
       val result      = useCase.authenticate(credentials).unsafeRunSync()
 
       result.isRight shouldBe true
-      result.map(_.userId shouldBe userId.toString)
+      result.map(_.userId shouldBe user.id.raw)
     }
 
     "fail authentication when user is not found" in {
@@ -69,17 +61,12 @@ class AuthenticateUserUseCaseTest extends AnyWordSpec with Matchers with Mockito
       val wrongPassword   = "wrongPassword"
       val hashedPassword  = passwordHashingService.hashPassword(correctPassword).unsafeRunSync()
 
-      val user = User(
-          id = UserId(UUID.randomUUID()),
-          name = "Jane",
-          surname = "Smith",
-          email = email,
-          password = hashedPassword,
-          birthdate = None,
-          phoneNumber = None,
-          createdAt = Instant.now(),
-          updatedAt = Instant.now()
-      )
+      val user = UserStub
+        .random()
+        .copy(
+            email = email,
+            password = hashedPassword
+        )
 
       when(mockUserRepository.findByEmail(email)).thenReturn(OptionT.some[IO](user))
 
@@ -94,18 +81,12 @@ class AuthenticateUserUseCaseTest extends AnyWordSpec with Matchers with Mockito
       val plainPassword  = "securePass"
       val hashedPassword = passwordHashingService.hashPassword(plainPassword).unsafeRunSync()
 
-      val userId = UUID.randomUUID()
-      val user   = User(
-          id = UserId(userId),
-          name = "Alice",
-          surname = "Johnson",
-          email = email,
-          password = hashedPassword,
-          birthdate = None,
-          phoneNumber = None,
-          createdAt = Instant.now(),
-          updatedAt = Instant.now()
-      )
+      val user = UserStub
+        .random()
+        .copy(
+            email = email,
+            password = hashedPassword
+        )
 
       when(mockUserRepository.findByEmail(email)).thenReturn(OptionT.some[IO](user))
 
@@ -116,8 +97,8 @@ class AuthenticateUserUseCaseTest extends AnyWordSpec with Matchers with Mockito
       result.foreach {
         token =>
           token.token should not be empty
-          token.userId shouldBe userId.toString
-          jwtService.validateToken(token.token).unsafeRunSync() shouldBe Right(userId.toString)
+          token.userId shouldBe user.id.raw
+          jwtService.validateToken(token.token).unsafeRunSync() shouldBe Right(user.id.raw)
       }
     }
   }

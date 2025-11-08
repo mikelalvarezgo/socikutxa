@@ -30,12 +30,18 @@ class PostgresProductRepository(transactor: Transactor[IO])
 
   override def findAll(): IO[List[Product]] = {
     sql"""
-      SELECT id, name, category, price FROM product"
+      SELECT id, name, category, price FROM product
     """
       .query[Product]
       .stream
       .compile
       .toList
       .transact(transactor)
+  }
+
+  def deleteAll(): IO[Unit] = {
+    sql"""
+      DELETE FROM product
+    """.update.run.transact(transactor).void
   }
 }
