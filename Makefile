@@ -12,17 +12,17 @@ endif
 ##	build:			Build or rebuild hermes services
 .PHONY : build
 build:
-	@docker-compose -f stack/services.yaml build
+	@docker compose -f stack/services.yaml build
 
  ## 	up:			Build and UP de environment
 .PHONY : up
 up:
-	@docker-compose -f stack/services.yaml up -d --build
+	@docker compose -f stack/services.yaml up -d --build
 
 ## 	down:			Brings the environment down
  .PHONY : down
  down:
-	@docker-compose -f stack/services.yaml down
+	@docker compose -f stack/services.yaml down
 
 ## 	fmt:			Format Scala sources with scalafmt
 .PHONY : fmt

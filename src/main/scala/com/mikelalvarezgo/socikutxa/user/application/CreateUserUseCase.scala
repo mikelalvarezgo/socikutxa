@@ -3,7 +3,7 @@ package com.mikelalvarezgo.socikutxa.user.application
 import cats.implicits._
 import com.mikelalvarezgo.socikutxa.user.application.CreateUserUseCase.CreateUserCommand
 import com.mikelalvarezgo.socikutxa.user.domain.contract.UserRepository
-import com.mikelalvarezgo.socikutxa.user.domain.{Email, PhoneNumber, User, UserId}
+import com.mikelalvarezgo.socikutxa.user.domain.{Email, PhoneNumber, User, UserId, UserType}
 import com.mikelalvarezgo.socikutxa.shared.domain.error.Validation.Validation
 import com.mikelalvarezgo.socikutxa.shared.domain.{Command, UseCase}
 
@@ -29,7 +29,21 @@ class CreateUserUseCase[P[_]](userRepository: UserRepository[P])
         r.phoneNumber.traverse(PhoneNumber.fromString),
         Instant.now().validNel,
         Instant.now().validNel
-    ).mapN(User.apply)
+    ).mapN(
+        (id, name, surname, email, password, birthdate, phoneNumber, createdAt, updatedAt) =>
+          User(
+              id,
+              name,
+              surname,
+              email,
+              password,
+              UserType.Consumer,
+              birthdate,
+              phoneNumber,
+              createdAt,
+              updatedAt
+          )
+    )
   }
 }
 
