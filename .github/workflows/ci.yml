@@ -76,9 +76,11 @@ jobs:
       - name: Start Docker environment
         run: make up
 
-      - name: Wait for PostgreSQL to be ready
+      - name: Check containers
         run: |
-          timeout 60 bash -c 'until docker compose -f stack/services.yaml exec -T postgres pg_isready -U admin -d bardenas; do sleep 2; done'
+          sleep 20
+          docker ps
+          docker compose -f stack/services.yaml logs postgres
 
       - name: Flyway migration
         run: sbt flywayMigrate
