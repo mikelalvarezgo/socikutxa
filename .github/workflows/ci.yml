@@ -73,5 +73,12 @@ jobs:
       - name: Show sbt version
         run: sbt --version
 
+      - name: Start Docker environment
+        run: make up
+
       - name: Run tests
         run: sbt -v test
+
+      - name: Stop Docker environment
+        if: always()
+        run: make down
