@@ -15,6 +15,7 @@ object Dependencies {
     val kamonHttp4s   = "2.2.1"
     val mockito       = "2.0.0"
     val mongo         = "5.6.1"
+    val mongock       = "5.4.4"
     val doobie        = "1.0.0-RC10"
     val scalalikeJdbc = "4.3.0"
     val reactiveMongo = "1.0.3"
@@ -59,7 +60,10 @@ object Dependencies {
     val kamonBundle        = kamon("kamon-bundle")
     val kamonSystemMetrics = kamon("kamon-system-metrics")
 
-    val mongoDriver   = "org.mongodb.scala"          %% "mongo-scala-driver" % Version.mongo
+    val mongoDriver      = "org.mongodb.scala"          %% "mongo-scala-driver" % Version.mongo
+    val mongoDriverSync  = "org.mongodb"                 % "mongodb-driver-sync" % Version.mongo
+    val mongockCore      = "io.mongock"                  % "mongock-standalone" % Version.mongock
+    val mongockDriver    = "io.mongock"                  % "mongodb-sync-v4-driver" % Version.mongock
     // Start with this one
     val doobie        = "org.tpolecat"               %% "doobie-core"        % Version.doobie
     val scalalikeJdbc = "org.scalikejdbc"            %% "scalikejdbc"        % Version.scalalikeJdbc
@@ -99,6 +103,9 @@ object Dependencies {
       General.kantanCats,
       General.kamonSystemMetrics,
       General.mongoDriver,
+      General.mongoDriverSync,
+      General.mongockCore,
+      General.mongockDriver,
       General.typeSafe,
       General.scalaLogging,
       General.postgresql,

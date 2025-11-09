@@ -35,8 +35,8 @@ src/main/scala/com/mikelalvarezgo/socikutxa/
 - **Cats Effect** - Functional effects and concurrency
 - **Http4s** - HTTP server and client (Ember)
 - **Doobie** - Functional database access
-- **PostgreSQL** - Primary data store
-- **Flyway** - Database migrations
+- **PostgreSQL** - Primary data store (with Flyway migrations)
+- **MongoDB** - Document store (with Mongock migrations)
 - **Kamon** - Application monitoring and metrics
 
 ## Prerequisites
@@ -45,7 +45,8 @@ src/main/scala/com/mikelalvarezgo/socikutxa/
 - Scala 2.13.15
 - SBT 1.x
 - PostgreSQL 12 or higher
-- Docker (optional, for running PostgreSQL)
+- MongoDB 5.0 or higher
+- Docker & Docker Compose (optional, for running databases)
 
 ## Configuration
 
@@ -67,24 +68,86 @@ server {
 
 ## Getting Started
 
-### 1. Setup Database
+### 1. Setup Databases
 
-Create the PostgreSQL database:
+#### Option A: Using Docker Compose (Recommended)
 
+Start both PostgreSQL and MongoDB:
+
+```bash
+make up
+```
+
+This will start:
+- PostgreSQL on `localhost:5432`
+- MongoDB on `localhost:27017`
+
+Stop the databases:
+
+```bash
+make down
+```
+
+#### Option B: Manual Setup
+
+**PostgreSQL:**
 ```bash
 createdb bardenas
 ```
 
-Or using Docker:
-
+**MongoDB:**
 ```bash
-docker run --name bardenas-postgres -e POSTGRES_PASSWORD=12345 -e POSTGRES_USER=admin -e POSTGRES_DB=bardenas -p 5432:5432 -d postgres:15
+mongosh
+use bardenas
 ```
 
 ### 2. Run Database Migrations
 
+#### PostgreSQL Migrations (Flyway)
+
 ```bash
 sbt flywayMigrate
+```
+
+Available Flyway commands:
+```bash
+sbt flywayMigrate   # Apply migrations
+sbt flywayClean     # Clean database
+sbt flywayInfo      # Migration status
+```
+
+#### MongoDB Migrations (Mongock)
+
+Mongock migrations run automatically when you initialize `MongockRunner` in your application:
+
+```scala
+import com.mikelalvarezgo.socikutxa.shared.infrastructure.persistence.mongo.{MongoConfig, MongockRunner}
+
+val mongoConfig = MongoConfig.fromConfig(config.getConfig("mongo"))
+val mongockRunner = new MongockRunner(mongoConfig)
+mongockRunner.runMigrations()
+```
+
+To create a new MongoDB migration:
+
+1. Create a new class in `src/main/scala/com/mikelalvarezgo/socikutxa/shared/infrastructure/persistence/mongo/migrations/`
+2. Use `@ChangeUnit` annotation with incremental order:
+
+```scala
+@ChangeUnit(id = "create-my-collection", order = "002", author = "bardenas")
+class DatabaseChangelog002 {
+
+  @Execution
+  def createCollection(database: MongoDatabase): Unit = {
+    database.createCollection("my_collection")
+    // Add indexes, validation, etc.
+  }
+
+  @RollbackExecution
+  def rollback(database: MongoDatabase): Unit = {
+    database.getCollection("my_collection").drop()
+  }
+}
 ```
 
 ### 3. Run the Application
@@ -121,15 +184,19 @@ sbt "testOnly *BehaviourTest*"
 
 ## Database Migrations
 
-Flyway is configured for database migrations. Migration files should be placed in `src/main/resources/db/migration/`.
+### PostgreSQL (Flyway)
 
-Available Flyway commands:
+Flyway migration files are placed in `src/main/resources/db/migration/`:
+- Naming: `V{version}__{description}.sql` (e.g., `V1__create_product_table.sql`)
+- Runs via SBT: `sbt flywayMigrate`
 
-```bash
-sbt flywayMigrate   # Apply migrations
-sbt flywayClean     # Clean database
-sbt flywayInfo      # Migration status
-```
+### MongoDB (Mongock)
+
+Mongock migration classes are in `src/main/scala/.../mongo/migrations/`:
+- Naming: `DatabaseChangelog{number}.scala` (e.g., `DatabaseChangelog001.scala`)
+- Runs automatically on application startup
+- Uses `@ChangeUnit` annotations for versioning
+- Supports rollback with `@RollbackExecution`
 
 ## Project Structure
 

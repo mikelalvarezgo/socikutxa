@@ -6,6 +6,7 @@ import com.comcast.ip4s._
 import com.mikelalvarezgo.socikutxa.product.infrastructure.ProductContext
 import com.mikelalvarezgo.socikutxa.user.infrastructure.UserContext
 import com.mikelalvarezgo.socikutxa.shared.infrastructure.configuration.AppConfig
+import com.mikelalvarezgo.socikutxa.shared.infrastructure.persistence.mongo.MongockRunner
 import doobie.Transactor
 import org.http4s.Response.http4sKleisliResponseSyntaxOptionT
 import org.http4s.ember.server.EmberServerBuilder
@@ -15,6 +16,13 @@ object App extends IOApp {
 
   override def run(args: List[String]): IO[ExitCode] = {
     val config = AppConfig.load()
+
+    // Run MongoDB migrations
+    val mongoConfig = com.mikelalvarezgo.socikutxa.shared.infrastructure.persistence.mongo.MongoConfig.fromConfig(
+      config.typeSafeConfig.getConfig("mongo")
+    )
+    val mongockRunner = new MongockRunner(mongoConfig)
+    mongockRunner.runMigrations()
 
     val transactor: Transactor[IO] = Transactor.fromDriverManager[IO](
         driver = config.database.driver,

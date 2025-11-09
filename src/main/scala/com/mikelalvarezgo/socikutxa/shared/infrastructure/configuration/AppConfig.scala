@@ -1,10 +1,17 @@
 package com.mikelalvarezgo.socikutxa.shared.infrastructure.configuration
 
-import com.typesafe.config.ConfigFactory
+import com.typesafe.config.{Config, ConfigFactory}
 
 case class DatabaseConfig(
     driver: String,
     url: String,
+    user: String,
+    password: String
+)
+
+case class MongoConfig(
+    host: String,
+    port: Int,
     user: String,
     password: String
 )
@@ -16,7 +23,9 @@ case class ServerConfig(
 
 case class AppConfig(
     database: DatabaseConfig,
-    server: ServerConfig
+    mongo: MongoConfig,
+    server: ServerConfig,
+    typeSafeConfig: Config
 )
 
 object AppConfig {
@@ -30,11 +39,18 @@ object AppConfig {
         password = config.getString("database.password")
     )
 
+    val mongo = MongoConfig(
+        host = config.getString("mongo.host"),
+        port = config.getInt("mongo.port"),
+        user = config.getString("mongo.user"),
+        password = config.getString("mongo.password")
+    )
+
     val server = ServerConfig(
         host = config.getString("server.host"),
         port = config.getInt("server.port")
     )
 
-    AppConfig(database, server)
+    AppConfig(database, mongo, server, config)
   }
 }
