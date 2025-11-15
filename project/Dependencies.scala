@@ -24,7 +24,7 @@ object Dependencies {
     val scalaTest     = "3.2.19"
     val sealerate     = "0.0.6"
     val slf4j         = "1.7.30"
-    val poi           = "5.4.1"
+    val poi           = "5.5.0"
     val jwtCirce      = "11.0.3"
     val bcrypt        = "0.4"
   }
