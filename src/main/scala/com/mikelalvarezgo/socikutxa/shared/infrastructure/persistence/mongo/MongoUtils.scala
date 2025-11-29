@@ -38,7 +38,7 @@ object MongoUtils {
     def getId(key: String): String                                               = getValue(getOptId(key), key)
     def getOptValues[T](
         key: String
-    )(implicit converter: MongoConverter[T]): Option[Seq[T]] =
+    )(implicit converter: MongoConverter[T]): Option[Seq[T]]                     =
       value
         .get[BsonArray](key)
         .map(
