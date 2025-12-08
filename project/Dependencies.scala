@@ -14,7 +14,7 @@ object Dependencies {
     val kamon         = "2.7.7"
     val kamonHttp4s   = "2.2.1"
     val mockito       = "2.0.0"
-    val mongo         = "5.6.1"
+    val mongo         = "5.6.2"
     val doobie        = "1.0.0-RC11"
     val scalalikeJdbc = "4.3.0"
     val reactiveMongo = "1.0.3"
