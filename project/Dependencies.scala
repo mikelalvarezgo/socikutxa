@@ -63,7 +63,7 @@ object Dependencies {
     // Start with this one
     val doobie        = "org.tpolecat"               %% "doobie-core"        % Version.doobie
     val scalalikeJdbc = "org.scalikejdbc"            %% "scalikejdbc"        % Version.scalalikeJdbc
-    val postgresql    = "org.postgresql"              % "postgresql"         % "42.7.8" // PostgreSQL JDBC driver
+    val postgresql    = "org.postgresql"              % "postgresql"         % "42.7.9" // PostgreSQL JDBC driver
     // Logs
     val scalaLogging  = "com.typesafe.scala-logging" %% "scala-logging"      % Version.scalaLogging
     val poi           = "org.apache.poi"              % "poi-ooxml"          % Version.poi
