@@ -5,7 +5,7 @@ object Dependencies {
     val akka          = "2.8.7"
     val akkaHttp      = "10.5.3"
     val akkaHttpCirce = "1.39.2"
-    val akkaHttpCors  = "1.2.0"
+    val akkaHttpCors  = "1.3.0"
     val catsEffect    = "3.6.3"
     val catsCore      = "2.13.0"
     val joda          = "2.14.0"
